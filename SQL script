@@ -1,0 +1,98 @@
+
+
+DROP TABLE IF EXISTS Status
+DROP TABLE IF EXISTS User
+DROP TABLE IF EXISTS Faculty
+DROP TABLE IF EXISTS Department
+DROP TABLE IF EXISTS Program
+DROP TABLE IF EXISTS Level
+DROP TABLE IF EXISTS Student
+DROP TABLE IF EXISTS Lec_Title
+DROP TABLE IF EXISTS Lec_Position
+DROP TABLE IF EXISTS Lecturer
+DROP TABLE IF EXISTS Mentor
+
+
+
+CREATE TABLE Status (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   status
+                                   )
+
+CREATE TABLE User (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   user_name VARCHAR(50),
+                                   surname VARCHAR(50),
+                                   first_name VARCHAR(50),
+                                   email TEXT,
+                                   password VARCHAR(50),
+                                   status_id,
+                                   FOREIGN KEY (status_id) REFERENCES Status(id)
+                                   )
+
+
+CREATE TABLE School (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   school_name
+                                   )
+
+
+CREATE TABLE Faculty (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   faculty,
+                                   school_id,
+                                   FOREIGN KEY (school_id) REFERENCES School(id)
+                                   )
+
+
+CREATE TABLE Department (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   department,
+                                   faculty_id,
+                                   FOREIGN KEY (faculty_id) REFERENCES Faculty(id)
+                                   )
+
+
+CREATE TABLE Program (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   program,
+                                   department_id,
+                                   FOREIGN KEY (department_id) REFERENCES Department(id)
+                                   )
+
+
+CREATE TABLE Level (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   level
+                                   )
+
+CREATE TABLE Student (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   user_id,
+                                   program_id,
+                                   matric_no,
+                                   level_id,
+                                   FOREIGN KEY (user_id) REFERENCES User(id),
+                                   FOREIGN KEY (program_id) REFERENCES Program(id),
+                                   FOREIGN KEY (level_id) REFERENCES Level(id)
+                                   )
+
+CREATE TABLE Lec_Title (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   title
+                                   )
+
+CREATE TABLE Lec_Position (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   position
+                                   )
+
+CREATE TABLE Lecturer (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   user_id,
+                                   department_id,
+                                   title_id,
+                                   position_id,
+                                   FOREIGN KEY (user_id) REFERENCES User(id),
+                                   FOREIGN KEY (department_id) REFERENCES Department(id),
+                                   FOREIGN KEY (title_id) REFERENCES Lec_Title(id),
+                                   FOREIGN KEY (position_id) REFERENCES Lec_Position(id)
+                                   )
+
+
+CREATE TABLE Mentor (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   user_id,
+                                   profession VARCHAR(50),
+                                   company   VARCHAR(50),
+                                   title TEXT,
+                                   FOREIGN KEY (user_id) REFERENCES User(id)
+                                   )
