@@ -3,7 +3,7 @@ import sqlite3
 conn = sqlite3.connect('instucomdb.sqlite')
 cur = conn.cursor()
 
-cur.execute('DROP TABLE IF EXISTS Status')
+cur.execute('DROP TABLE IF EXISTS Type')
 cur.execute('DROP TABLE IF EXISTS User')
 cur.execute('DROP TABLE IF EXISTS Faculty')
 cur.execute('DROP TABLE IF EXISTS Department')
@@ -17,74 +17,74 @@ cur.execute('DROP TABLE IF EXISTS Mentor')
 
 
 
-cur.execute('''CREATE TABLE Status (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                   status
+cur.execute('''CREATE TABLE Type (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   type VARCHAR(50) UNIQUE
                                    )''')
 
 cur.execute('''CREATE TABLE User (id INTEGER PRIMARY KEY AUTOINCREMENT,
                                    user_name VARCHAR(50),
                                    surname VARCHAR(50),
                                    first_name VARCHAR(50),
-                                   email TEXT,
+                                   email VARCHAR(50) UNIQUE,
                                    password VARCHAR(50),
-                                   status_id,
-                                   FOREIGN KEY (status_id) REFERENCES Status(id)
+                                   type_id VARCHAR(50),
+                                   FOREIGN KEY (type_id) REFERENCES Type(id)
                                    )''')
 
 
 cur.execute('''CREATE TABLE School (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                   school_name
+                                   school_name VARCHAR(100) UNIQUE
                                    )''')
 
 
 cur.execute('''CREATE TABLE Faculty (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                   faculty,
-                                   school_id,
+                                   faculty VARCHAR(50) UNIQUE,
+                                   school_id INTEGER,
                                    FOREIGN KEY (school_id) REFERENCES School(id)
                                    )''')
 
 
 cur.execute('''CREATE TABLE Department (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                   department,
-                                   faculty_id,
+                                   department VARCHAR(50) UNIQUE,
+                                   faculty_id INTEGER,
                                    FOREIGN KEY (faculty_id) REFERENCES Faculty(id)
                                    )''')
 
 
 cur.execute('''CREATE TABLE Program (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                   program,
-                                   department_id,
+                                   program VARCHAR(50) UNIQUE,
+                                   department_id INTEGER,
                                    FOREIGN KEY (department_id) REFERENCES Department(id)
                                    )''')
 
 
 cur.execute('''CREATE TABLE Level (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                   level
+                                   level INTEGER UNIQUE
                                    )''')
 
 cur.execute('''CREATE TABLE Student (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                   user_id,
-                                   program_id,
-                                   matric_no,
-                                   level_id,
+                                   user_id INTEGER UNIQUE,
+                                   program_id INTEGER
+                                   matric_no INTEGER UNIQUE,
+                                   level_id INTEGER,
                                    FOREIGN KEY (user_id) REFERENCES User(id),
                                    FOREIGN KEY (program_id) REFERENCES Program(id),
                                    FOREIGN KEY (level_id) REFERENCES Level(id)
                                    )''')
 
 cur.execute('''CREATE TABLE Lec_Title (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                   title
+                                   title VARCHAR(50) UNIQUE
                                    )''')
 
 cur.execute('''CREATE TABLE Lec_Position (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                   position
+                                   position VARCHAR(50) UNIQUE
                                    )''')
 
 cur.execute('''CREATE TABLE Lecturer (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                   user_id,
-                                   department_id,
-                                   title_id,
-                                   position_id,
+                                   user_id INTEGER UNIQUE,
+                                   department_id INTEGER,
+                                   title_id INTEGER,
+                                   position_id INTEGER,
                                    FOREIGN KEY (user_id) REFERENCES User(id),
                                    FOREIGN KEY (department_id) REFERENCES Department(id),
                                    FOREIGN KEY (title_id) REFERENCES Lec_Title(id),
@@ -93,10 +93,10 @@ cur.execute('''CREATE TABLE Lecturer (id INTEGER PRIMARY KEY AUTOINCREMENT,
 
 
 cur.execute('''CREATE TABLE Mentor (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                   user_id,
+                                   user_id INTEGER UNIQUE,
                                    profession VARCHAR(50),
                                    company   VARCHAR(50),
-                                   title TEXT,
+                                   title VARCHAR(50),
                                    FOREIGN KEY (user_id) REFERENCES User(id)
                                    )''')
 
