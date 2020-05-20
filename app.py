@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify, request, jsonify
 from flask_mysqldb import MySQL
 from flask_cors import CORS
