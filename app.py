@@ -54,10 +54,10 @@ class App:
 
 app = Flask(__name__)
 
-app.config['MYSQL_USER']= 'root'
-app.config['MYSQL_PASSWORD'] = 'Abayomi1996$'
-app.config['MYSQL_DB'] = 'instucomdb'
-app.config['JWT_SECRET_KEY'] = 'secret'
+app.config['MYSQL_USER']= os.environ.get('MYSQL_USER')
+app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD')
+app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB')
+app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
 
 mysql = MySQL(app)
 bcrypt = Bcrypt(app)
@@ -177,4 +177,6 @@ def login():
     return result
 
 if __name__ == '__main__':
+    # code to run db migrate
+    os.system("python ./instucomdb.py")
     app.run(debug=True)

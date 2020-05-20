@@ -4,10 +4,10 @@ mydb = None
 
 try:
     mydb = mysql.connector.connect(
-      host="localhost",
-      user="root",
-      passwd="Abayomi1996$",
-      database="instucomdb"
+      host= os.environ.get('MYSQL_HOST'),
+      user= os.environ.get('MYSQL_USER'),
+      passwd= os.environ.get('MYSQL_PASSWORD'),
+      database= os.environ.get('MYSQL_DB')
       )
 except Exception as e:
     print(e)
