@@ -3,3 +3,10 @@ flask_mysqldb
 flask_cors
 flask_bcrypt
 flask_jwt_extended
+flask_sqlalchemy
+flask_wtf.csrf import
+json
+functools
+sqlalchemy.orm
+sqlalchemy_serializer
+
