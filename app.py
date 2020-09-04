@@ -27,6 +27,10 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy.orm import sessionmaker
 from model.school_model import School, Faculty, Department, Program, Level
 
+from message_model import group_conv_init, group_conv_mem, personal_conv_init, personal_conv_mem, personal_message_model, group_message_model 
+from entertainment_model import news_model, blogger_model, featured_image_model
+
+
 # Retrieves database configuration from environment variables
 mysql_host = os.environ.get('MYSQL_HOST')
 mysql_user = os.environ.get('MYSQL_USER')
@@ -48,7 +52,7 @@ app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')  #The Jwt_secret
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
-base.Base.metadata.create_all(db.engine, checkfirst=True) 
+base.Base.metadata.create_all(db.engine, checkfirst=True)
 
  # This part of the code is to check if the important tables (School, Faculty, Department, Program, Level) have been initialized
 Session = sessionmaker(db.engine) 

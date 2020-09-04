@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Websocket test</title>
+</head>
+<body>
+
+    <script>
+        const ws = new WebSocket("ws://localhost:8080/ws")
+        ws.onopen = ()=>{
+            console.log('connection opened');
+            
+        }
+        ws.onmessage = (data) => {
+            data = data.data;
+            console.log(data);
+            data = JSON.parse(data);
+            // if(data.instance_id){
+            //     console.log('sending a message');
+                
+            //     ws.send({instance_id, user_id:2});
+            // }
+
+        }
+        ws.onclose = (e) => {
+            console.log(e);
+            
+        }
+        ws.onerror = (e) => {
+            console.log(e);
+            
+        }
+    </script>
+</body>
+</html>

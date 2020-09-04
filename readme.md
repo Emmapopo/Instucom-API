@@ -6,7 +6,7 @@ To setup:
     b) mysql_password
     c) mysql_user
     d) db_name - (Database name)
-    f) jwt_secret_key
+    e) jwt_secret_key
 
 
 It can do fo three major things: 
@@ -61,10 +61,8 @@ If any of the input does not conform to the expected datatype, it returns:   {'E
 
 
 
-
-
 LOGIN AS A USER
-To login, you just need to supply two information in a GET request. The path is '/token/auth':
+To login, you just need to supply two information in a POST request. The path is '/token/auth':
 (a) email
 (b) password
 
@@ -73,14 +71,10 @@ http://localhost/token/auth
 email: emmanueloyedeji20@yahoo.com
 password: Popo1234
 
-If login detaials are valid, it returns: "refresh": true,
-                                        "user name": "popo1"
+If login detaials are valid, it returns: "refresh"   : true,
+                                         "user name" : "popo1"
             
 If either the email or password is wrong, it returns:  "login": false
-
-
-
-
 
 
 
